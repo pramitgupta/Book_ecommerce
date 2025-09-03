@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Leaf & Ledger Books</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<script defer src="js/books.js"></script>
+<script defer src="js/covers.js"></script>
+<script defer src="js/auth.js"></script>
+<script defer src="js/app.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('login-form');
+  const next = new URLSearchParams(location.search).get('next') || 'account.html';
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    try {
+      await logIn(email, password);
+      alert('Welcome back!');
+      window.location.href = next;
+    } catch(err){
+      alert(err.message);
+    }
+  });
+});
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html">Leaf &amp; Ledger</a>
+    <nav class="nav">
+      <a href="products.html">Books</a>
+      <a href="cart.html">Cart <span id="nav-cart-badge" class="badge"></span></a>
+      <span id="nav-auth-cta">
+        <a href="login.html">Log in</a>
+        <a href="signup.html" class="button button-primary">Sign up</a>
+      </span>
+      <span id="nav-account" class="hidden">
+        <a id="nav-hello" href="account.html"></a>
+        <button id="nav-logout" class="linklike">Logout</button>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<main class="container" style="padding:30px 0">
+  <h1>Log in</h1>
+  <form id="login-form" class="form">
+    <div class="field"><label>Email</label><input id="email" type="email" required /></div>
+    <div class="field"><label>Password</label><input id="password" type="password" required /></div>
+    <button class="button button-primary" type="submit">Log in</button>
+  </form>
+  <p>New here? <a href="signup.html">Create an account</a>.</p>
+  <p class="callout">Demo notice: Client-side only. No emails are sent.</p>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p>© <span id="year"></span> Leaf &amp; Ledger • Demo store for learning purposes only.</p>
+  </div>
+</footer>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

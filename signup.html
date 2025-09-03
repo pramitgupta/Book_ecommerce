@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Leaf & Ledger Books</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<script defer src="js/books.js"></script>
+<script defer src="js/covers.js"></script>
+<script defer src="js/auth.js"></script>
+<script defer src="js/app.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('signup-form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    try {
+      await signUp(name, email, password);
+      alert('Welcome! Account created.');
+      window.location.href = 'account.html';
+    } catch(err){
+      alert(err.message);
+    }
+  });
+});
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html">Leaf &amp; Ledger</a>
+    <nav class="nav">
+      <a href="products.html">Books</a>
+      <a href="cart.html">Cart <span id="nav-cart-badge" class="badge"></span></a>
+      <span id="nav-auth-cta">
+        <a href="login.html">Log in</a>
+        <a href="signup.html" class="button button-primary">Sign up</a>
+      </span>
+      <span id="nav-account" class="hidden">
+        <a id="nav-hello" href="account.html"></a>
+        <button id="nav-logout" class="linklike">Logout</button>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<main class="container" style="padding:30px 0">
+  <h1>Create your account</h1>
+  <form id="signup-form" class="form">
+    <div class="field"><label>Full name</label><input id="name" required placeholder="e.g., Asha Sharma" /></div>
+    <div class="field"><label>Email</label><input id="email" type="email" required placeholder="you@example.com" /></div>
+    <div class="field"><label>Password</label><input id="password" type="password" required minlength="6" placeholder="At least 6 characters" /></div>
+    <button class="button button-primary" type="submit">Sign up</button>
+  </form>
+  <p class="callout">Demo notice: This is a client-side demo. Do not use real passwords.</p>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p>© <span id="year"></span> Leaf &amp; Ledger • Demo store for learning purposes only.</p>
+  </div>
+</footer>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
